@@ -5,15 +5,19 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         n = len(nums)
-        total_subset = 1<<n
-        result=[]
-        for num in range(0,total_subset):
-            lst = []
-            for i in range(0,n):
-                if num & (1<<i)!= 0:
-                    lst.append(nums[i])
-            result.append(lst)
+        result = []
+
+        def recursion(index,subsets):
+            if index >= n:
+                result.append(list(subsets))
+                return
+            subsets.append(nums[index])
+            recursion(index + 1,subsets)
+            subsets.pop()
+            recursion(index + 1, subsets)
+        recursion(0, [])
         return result
+
 
 
         
